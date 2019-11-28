@@ -22,5 +22,37 @@ I need to do the following:
 3.1)Select the project to be seen.
 3.2)Display the information of the project
 
+DONE
 4)Menu
 4.1)Displaying a menu with the options (1,2,3 and exit)
+
+
+Project Format:
+json
+projects.json:
+[
+  {
+    "project_id": 0,
+    "project_name": "My first project",
+    "description" : "example description",
+    "github" : "https://github.com/eriklopezherrera/repo",
+    "status" : "initiated",
+    "updates" : {
+      "0" : "initialized project",
+      "1" : "planned stage done"
+      },
+    "percentage" : ""
+  },
+  {
+    "project_id": 1,
+    "project_name": "My second project",
+    "description" : "another description",
+    "github" : "https://github.com/eriklopezherrera/repo",
+    "status" : "done",
+    "updates" : {
+      "0" : "initialized project",
+      "1" : "planned stage done"
+      },
+    "percentage" : ""
+  }
+]
