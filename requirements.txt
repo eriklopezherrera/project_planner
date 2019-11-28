@@ -1,0 +1,26 @@
+Project Planner
+
+This project is going to allow me to track projects and its progress
+
+
+I need to do the following:
+
+1)Add a new project.
+1.1)It will require me to  input the project name
+1.2)Description of the project
+1.3)Initialize with a status
+1.4)**Connect with github and initialize a repository
+1.5)Save the information of the project (database or json?)
+
+2)Update a project.
+2.1)Select the project to update.
+2.2)Give options as to what is going to be updated.
+2.3)Receive the update
+2.4)Save the project
+
+3)View a project
+3.1)Select the project to be seen.
+3.2)Display the information of the project
+
+4)Menu
+4.1)Displaying a menu with the options (1,2,3 and exit)
