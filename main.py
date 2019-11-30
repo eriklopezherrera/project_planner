@@ -30,13 +30,82 @@ def edit_projects():
 
 def edit_project(project):
     clear()
-    _ = input('Waiting')
+    print("==========================================")
+    print("|             Edit Project               |")
+    print("|                                        |")
+    print("==========================================")
+    print("1)Edit name (" + project['project_name'] + ")")
+    print("2)Edit description (" + project['description'] +")" )
+    print("3)Edit github repository (" + project['github'] +")" )
+    print("4)Edit status (" + project['status'] +")" )
+    print("5)Add update (" + str(len(project['updates'])) +" Updates)" )
+    print("6)Edit Percentage (" + project['percentage'] +")" )
+    print("7)Save changes ")
+    print("8)Quit without saving ")
+    print("0)Return to previous menu ")
+    e_switcher = {
+        1: edit_name,
+        2: edit_descr,
+        3: edit_github,
+        4: edit_status,
+        5: add_update,
+        6: edit_percentage,
+        7: edit_save,
+        8: edit_quit,
+        0: edit_return
+    }
+    option = input("Select an option: ")
+    e_func = e_switcher.get(int(option), "Invalid Option")
+    clear()
+    e_func(project)
     main_func()
+def edit_name(project):
+    print('Current name: ' + project['project_name'])
+    e_name = input('Enter new name: ')
+    project['project_name'] = e_name
+    edit_project(project)
+def edit_descr(project):
+    print('Current description: ' + project['description'])
+    e_desc = input('Enter new description: ')
+    project['description'] = e_desc
+    edit_project(project)
+def edit_github(project):
+    print('Current github: ' + project['github'])
+    e_github = input('Enter new github: ')
+    project['github'] = e_github
+    edit_project(project)
+def edit_status(project):
+    print('Current status: ' + project['status'])
+    e_status = input('Enter new status: ')
+    project['status'] = e_status
+    edit_project(project)
+def add_update(project):
+    _ = input('You pressed add update')
+def edit_percentage(project):
+    _ = input('You pressed edit percentage')
+def edit_save(project):
+    with open('projects.json', 'r') as f:
+        projects_dict = json.load(f)
+        print("edit project id: " + str(project['project_id']))
+        #since the position will always match the id (id 0 will be position 0)
+        #we can safely user the id as the position for the edit/save process
+        projects_dict[project['project_id']] = project
+        print(projects_dict[project['project_id']])
+        with open('projects.json', 'w') as f:
+            json.dump(projects_dict,f)
+    #remove me
+    _ = input('Changes have been saved, press any key to continue')
+    edit_project(project)
+def edit_quit(project):
+    print("Skipping changes and returning")
+    edit_projects()
+def edit_return(project = None):
+    edit_projects()
+
 def new_project():
     #we need to get the latest index so that we can add another one
     with open('projects.json', 'r') as f:
         projects_dict = json.load(f)
-        print("Size of the projects:")
         new = len(projects_dict)
         n_proj_name = input("Name of the project: ")
         n_descr = input("Description of the project: ")
@@ -93,12 +162,7 @@ def view_projects():
 
 def main_func():
     clear()
-    switcher = {
-        1: m_new_project,
-        2: m_edit_project,
-        3: m_view_project,
-        0: m_exit_program
-    }
+
     print("==========================================")
     print("|    Welcome to your project planner!    |")
     print("|                                        |")
@@ -110,6 +174,12 @@ def main_func():
     print("|                                        |")
     print("==========================================")
     option = input("Give me an option: ")
+    switcher = {
+        1: m_new_project,
+        2: m_edit_project,
+        3: m_view_project,
+        0: m_exit_program
+    }
     func = switcher.get(int(option), "Invalid Option")
     func()
 
