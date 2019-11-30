@@ -9,6 +9,29 @@ def clear():
     else:
         _ = system('clear')
 
+def edit_projects():
+    #We need to know which entry to edit
+    clear()
+    with open('projects.json', 'r') as f:
+        projects_dict = json.load(f)
+        print("==========================================")
+        print("|             Projects                   |")
+        print("|                                        |")
+        print("==========================================")
+        for project in projects_dict:
+            print(str(project['project_id'] + 1) + " " + project['project_name'])
+        print("0 Return to main menu")
+        option = input("Select an option ")
+        if option == "0":
+            main_func()
+        else :
+            edit_project(projects_dict[int(option)-1])
+        _ = input("Press any key to return to the project selection")
+
+def edit_project(project):
+    clear()
+    _ = input('Waiting')
+    main_func()
 def new_project():
     #we need to get the latest index so that we can add another one
     with open('projects.json', 'r') as f:
@@ -97,7 +120,7 @@ def m_new_project():
     main_func()
 def m_edit_project():
     clear()
-    _ = input("Edit existing project")
+    edit_projects()
     main_func()
 def m_view_project():
     view_projects()
