@@ -1,4 +1,4 @@
-from os import system, name
+from os import system, name, path
 import json
 
 def clear():
@@ -8,7 +8,13 @@ def clear():
     #Mac and Linux
     else:
         _ = system('clear')
-
+def init_app():
+    if path.exists('projects.json') is False:
+        print('File is not present. Creating the file...')
+        data = []
+        with open('projects.json', 'w') as file:
+            json.dump(data,file)
+        _ = input('Create the file?')
 def edit_projects():
     #We need to know which entry to edit
     clear()
@@ -80,9 +86,22 @@ def edit_status(project):
     project['status'] = e_status
     edit_project(project)
 def add_update(project):
-    _ = input('You pressed add update')
+    max_update_id = len(project['updates'])
+    print(max_update_id)
+    new_update = input('Type your update here: ')
+    new_up_dict = {
+        str(max_update_id + 1) : new_update
+    }
+    project['updates'][str(max_update_id)] = new_update
+    #print(type(project['updates']))
+    print(project['updates'])
+    _ = input('press any key to return to edit menu')
+    edit_project(project)
 def edit_percentage(project):
-    _ = input('You pressed edit percentage')
+    print('Current percentage: ' + project['percentage'])
+    e_percentage = input('Enter new percentage: ')
+    project['percentage'] = e_percentage
+    edit_project(project)
 def edit_save(project):
     with open('projects.json', 'r') as f:
         projects_dict = json.load(f)
@@ -93,7 +112,6 @@ def edit_save(project):
         print(projects_dict[project['project_id']])
         with open('projects.json', 'w') as f:
             json.dump(projects_dict,f)
-    #remove me
     _ = input('Changes have been saved, press any key to continue')
     edit_project(project)
 def edit_quit(project):
@@ -201,4 +219,5 @@ def m_exit_program():
     exit()
 
 clear()
+init_app()
 main_func()
